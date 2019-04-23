@@ -1,0 +1,9 @@
+# import User from "user.graphql"
+# import Event from "event.graphql"
+
+type Invitation {
+	id: ID!
+	sender: User!
+	receiver: User!
+	event: Event!
+}

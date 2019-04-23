@@ -1,0 +1,134 @@
+# import User from "user.graphql"
+# import Event from "event.graphql"
+# import Registration from "registration.graphql"
+# import Request from "request.graphql"
+# import Invitation from "invitation.graphql"
+# import Post from "post.graphql"
+# import Comment from "comment.graphql"
+
+type Query {
+	user(id: ID!): User!
+	users(query: String): [User!]!
+	event(id: ID!): Event!
+	events(query: QueryEventInput): [Event!]!
+	requests(user: ID!): [Request!]!
+	invitations(user: ID!): [Invitation!]!
+}
+
+type Mutation {
+	createUser(data: CreateUserInput!): User!
+	updateUser(id: ID!, data: UpdateUserInput!): User!
+	deleteUser(id: ID!): User!
+	createEvent(data: CreateEventInput!): Event!
+	updateEvent(id: ID!, data: UpdateEventInput!): Event!
+	deleteEvent(id: ID!): Event!
+	createRegistration(data: CreateRegistrationInput!): Registration!
+	deleteRegistration(id: ID!): Registration!
+	createPost(data: CreatePostInput!): Post!
+	updatePost(id: ID!, data: UpdatePostInput!): Post!
+	deletePost(id: ID!): Post!
+	createComment(data: CreateCommentInput!): Comment!
+	updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+	deleteComment(id: ID!): Comment!
+	createRequest(data: CreateRequestInput!): Request!
+	deleteRequest(id: ID!): Request!
+	acceptRequest(id: ID!): String!
+	createInvitation(data: CreateInvitationInput!): Invitation!
+	deleteInvitation(id: ID!): Invitation!
+}
+
+type QueryEventInput {
+	creator: ID
+	search: String
+	location: String
+	minPrice: Float
+	maxPrice: Float
+}
+
+type CreateUserInput {
+	firstName: String!
+	lastName: String!
+	dateOfBirth: String!
+	email: String!
+	password: String!
+	location: String!
+}
+
+type CreateEventInput {
+	creator: ID!
+	title: String!
+	description: String!
+	location: String!
+	dateTime: String!
+	registrationDeadline: String!
+	price: Float!
+	isPublic: Boolean!
+	isPublished: Boolean!
+}
+
+type CreateRegistrationInput {
+	user: ID!
+	event: ID!
+	guestCount: Int!
+}
+
+type CreatePostInput {
+	author: ID!
+	event: ID!
+	content: String!
+}
+
+type CreateCommentInput {
+	post: ID!
+	author: ID!
+	content: String!
+}
+
+type CreateInvitationInput {
+	sender: ID!
+	receiver: ID!
+	event: ID!
+}
+
+type CreateRequestInput {
+	from: ID!
+	to: ID!
+}
+
+type UpdateUserInput {
+	firstName: String
+	lastName: String
+	dateOfBirth: String
+	email: String
+	password: String
+	location: String
+}
+
+type UpdateEventInput {
+	title: String
+	description: String
+	location: String
+	dateTime: String
+	registrationDeadline: String
+	price: Float
+	isPublic: Boolean
+	isPublished: Boolean
+}
+
+type UpdateRegistrationInput {
+	guestCount: Int!
+}
+
+type UpdatePostInput {
+	content: String!
+}
+
+type UpdateCommentInput {
+	content: String!
+}
+
+enum MutationType {
+	CREATED
+	UPDATED
+	DELETED
+}

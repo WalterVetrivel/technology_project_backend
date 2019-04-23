@@ -1,0 +1,11 @@
+# import User from "user.graphql"
+# import Event from "event.graphql"
+# import Comment from "comment.graphql"
+
+type Post {
+	id: ID!
+	author: User!
+	event: Event!
+	content: String!
+	comments: [Comment!]!
+}

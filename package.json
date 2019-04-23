@@ -1,0 +1,32 @@
+{
+	"name": "event-booking",
+	"version": "1.0.0",
+	"description": "An event booking API using Prisma and GraphQL",
+	"main": "index.js",
+	"scripts": {
+    "start": "nodemon src/index.js --ext js,graphql --exec babel-node",
+    "get-schema": "graphql get-schema -p prisma",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"event",
+		"prisma",
+		"graphql",
+		"event",
+		"booking",
+		"node",
+		"express"
+	],
+	"author": "Walter Vetrivel Selvakumar",
+	"license": "ISC",
+	"dependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"graphql-cli": "^3.0.11",
+		"graphql-import": "^0.7.1",
+		"graphql-yoga": "^1.17.4",
+		"prisma-binding": "^2.3.10",
+		"uuid": "^3.3.2"
+	}
+}

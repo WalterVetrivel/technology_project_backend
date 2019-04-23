@@ -1,0 +1,9 @@
+# import User from "user.graphql"
+# import Event from "event.graphql"
+
+type Registration {
+	id: ID!
+	user: User!
+	event: Event!
+	guestCount: Int!
+}

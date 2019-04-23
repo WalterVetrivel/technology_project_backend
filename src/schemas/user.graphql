@@ -1,0 +1,20 @@
+# import Event from "event.graphql"
+# import Registration from "registration.graphql"
+# import Request from "request.graphql"
+# import Invitation from "invitation.graphql"
+
+type User {
+	id: ID!
+	firstName: String!
+	lastName: String!
+	dateOfBirth: String!
+	email: String!
+	password: String!
+	location: String!
+	isVerified: Boolean!
+	createdEvents: [Event!]!
+	registeredEvents: [Registration!]!
+	invitations: [Invitation!]!
+	requests: [Request!]!
+	connections: [User!]!
+}

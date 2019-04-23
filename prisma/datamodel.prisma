@@ -1,0 +1,80 @@
+type User {
+	id: ID! @id
+	firstName: String!
+	lastName: String!
+	dateOfBirth: DateTime!
+	email: String! @unique
+	password: String!
+	location: String!
+	isVerified: Boolean! @default(value: false)
+	createdEvents: [Event!]! @relation(name: "CreatedEvents")
+	registeredEvents: [Registration!]!
+	invitations: [Invitation!]! @relation(name: "ReceivedInvitation")
+	requests: [Request!]! @relation(name: "ReceivedRequest")
+	connections: [User!]!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Event {
+	id: ID! @id
+	creator: User! @relation(name: "CreatedEvents")
+	title: String!
+	description: String!
+	location: String!
+	dateTime: DateTime!
+	price: Float!
+	registrationDeadline: DateTime!
+	isPublic: Boolean! @default(value: true)
+	isPublished: Boolean! @default(value: false)
+	guests: [Registration!]!
+	invited: [Invitation!]! @relation(name: "EventInvitation")
+	posts: [Post!]!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Registration {
+	id: ID! @id
+	user: User!
+	event: Event!
+	guestCount: Int!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Request {
+	id: ID! @id
+	from: User! @relation(name: "SentRequest")
+	to: User! @relation(name: "ReceivedRequest")
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Invitation {
+	id: ID! @id
+	sender: User! @relation(name: "SentInvitation")
+	receiver: User! @relation(name: "ReceivedInvitation")
+	event: Event! @relation(name: "EventInvitation")
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Post {
+	id: ID! @id
+	author: User!
+	event: Event!
+	content: String!
+	comments: [Comment!]! @relation(name: "PostComment")
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Comment {
+	id: ID! @id
+	post: Post! @relation(name: "PostComment")
+	author: User!
+	content: String!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
