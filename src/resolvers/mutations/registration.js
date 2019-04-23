@@ -1,6 +1,11 @@
 export default {
 	createRegistration: async (parent, args, {prisma}, info) => {
-		return prisma.mutation.createRegistration({data: args.data}, info);
+		const data = {
+			...args.data,
+			user: {connect: {id: args.data.user}},
+			event: {connect: {id: args.data.event}}
+		};
+		return prisma.mutation.createRegistration({data}, info);
 	},
 	deleteRegistration: async (parent, args, {prisma}, info) => {
 		const registrationExists = await prisma.exists.Registration({id: args.id});

@@ -1,6 +1,7 @@
 export default {
 	createEvent: async (parent, args, {prisma}, info) => {
-		return prisma.mutation.createEvent({data: args.data}, info);
+		const data = {...args.data, creator: {connect: {id: args.data.creator}}};
+		return prisma.mutation.createEvent({data}, info);
 	},
 	deleteEvent: async (parent, args, {prisma}, info) => {
 		const eventExists = await prisma.exists.Event({id: args.id});

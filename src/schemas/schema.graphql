@@ -11,8 +11,6 @@ type Query {
 	users(query: String): [User!]!
 	event(id: ID!): Event!
 	events(query: QueryEventInput): [Event!]!
-	requests(user: ID!): [Request!]!
-	invitations(user: ID!): [Invitation!]!
 }
 
 type Mutation {
@@ -37,7 +35,7 @@ type Mutation {
 	deleteInvitation(id: ID!): Invitation!
 }
 
-type QueryEventInput {
+input QueryEventInput {
 	creator: ID
 	search: String
 	location: String
@@ -45,7 +43,7 @@ type QueryEventInput {
 	maxPrice: Float
 }
 
-type CreateUserInput {
+input CreateUserInput {
 	firstName: String!
 	lastName: String!
 	dateOfBirth: String!
@@ -54,7 +52,7 @@ type CreateUserInput {
 	location: String!
 }
 
-type CreateEventInput {
+input CreateEventInput {
 	creator: ID!
 	title: String!
 	description: String!
@@ -62,40 +60,40 @@ type CreateEventInput {
 	dateTime: String!
 	registrationDeadline: String!
 	price: Float!
-	isPublic: Boolean!
-	isPublished: Boolean!
+	isPublic: Boolean
+	isPublished: Boolean
 }
 
-type CreateRegistrationInput {
+input CreateRegistrationInput {
 	user: ID!
 	event: ID!
 	guestCount: Int!
 }
 
-type CreatePostInput {
+input CreatePostInput {
 	author: ID!
 	event: ID!
 	content: String!
 }
 
-type CreateCommentInput {
+input CreateCommentInput {
 	post: ID!
 	author: ID!
 	content: String!
 }
 
-type CreateInvitationInput {
+input CreateInvitationInput {
 	sender: ID!
 	receiver: ID!
 	event: ID!
 }
 
-type CreateRequestInput {
+input CreateRequestInput {
 	from: ID!
 	to: ID!
 }
 
-type UpdateUserInput {
+input UpdateUserInput {
 	firstName: String
 	lastName: String
 	dateOfBirth: String
@@ -104,7 +102,7 @@ type UpdateUserInput {
 	location: String
 }
 
-type UpdateEventInput {
+input UpdateEventInput {
 	title: String
 	description: String
 	location: String
@@ -115,20 +113,14 @@ type UpdateEventInput {
 	isPublished: Boolean
 }
 
-type UpdateRegistrationInput {
+input UpdateRegistrationInput {
 	guestCount: Int!
 }
 
-type UpdatePostInput {
+input UpdatePostInput {
 	content: String!
 }
 
-type UpdateCommentInput {
+input UpdateCommentInput {
 	content: String!
-}
-
-enum MutationType {
-	CREATED
-	UPDATED
-	DELETED
 }
