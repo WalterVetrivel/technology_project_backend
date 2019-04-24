@@ -10,8 +10,9 @@ type User {
 	dateOfBirth: String!
 	email: String!
 	password: String!
-	location: String!
-	isVerified: Boolean!
+	city: String!
+	state: String!
+	country: String!
 	createdEvents: [Event!]!
 	registeredEvents: [Registration!]!
 	invitations: [Invitation!]!

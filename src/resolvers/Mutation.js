@@ -1,4 +1,5 @@
 import UserMutation from './mutations/user';
+import AuthMutation from './mutations/auth';
 import EventMutation from './mutations/event';
 import RegistrationMutation from './mutations/registration';
 import PostMutation from './mutations/post';
@@ -8,6 +9,7 @@ import RequestMutation from './mutations/request';
 
 export default {
 	...UserMutation,
+	...AuthMutation,
 	...EventMutation,
 	...RegistrationMutation,
 	...PostMutation,

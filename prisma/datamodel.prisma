@@ -5,8 +5,9 @@ type User {
 	dateOfBirth: DateTime!
 	email: String! @unique
 	password: String!
-	location: String!
-	isVerified: Boolean! @default(value: false)
+	city: String!
+	state: String!
+	country: String!
 	createdEvents: [Event!]! @relation(name: "CreatedEvents")
 	registeredEvents: [Registration!]!
 	invitations: [Invitation!]! @relation(name: "ReceivedInvitation")
@@ -21,10 +22,16 @@ type Event {
 	creator: User! @relation(name: "CreatedEvents")
 	title: String!
 	description: String!
-	location: String!
+	address: String!
+	city: String!
+	postCode: String!
+	state: String!
+	country: String!
 	dateTime: DateTime!
 	price: Float!
 	registrationDeadline: DateTime!
+	categories: [String!]! @scalarList(strategy: RELATION)
+	imageUrl: String
 	isPublic: Boolean! @default(value: true)
 	isPublished: Boolean! @default(value: false)
 	guests: [Registration!]!

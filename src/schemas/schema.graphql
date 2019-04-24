@@ -14,7 +14,9 @@ type Query {
 }
 
 type Mutation {
-	createUser(data: CreateUserInput!): User!
+	login(data: AuthInput!): AuthPayload!
+	logout(data: LogoutInput!): String!
+	createUser(data: CreateUserInput!): AuthPayload!
 	updateUser(id: ID!, data: UpdateUserInput!): User!
 	deleteUser(id: ID!): User!
 	createEvent(data: CreateEventInput!): Event!
@@ -33,6 +35,20 @@ type Mutation {
 	acceptRequest(id: ID!): String!
 	createInvitation(data: CreateInvitationInput!): Invitation!
 	deleteInvitation(id: ID!): Invitation!
+}
+
+type AuthPayload {
+	user: User!
+	token: String!
+}
+
+input AuthInput {
+	email: String!
+	password: String!
+}
+
+input LogoutInput {
+	email: String!
 }
 
 input QueryEventInput {

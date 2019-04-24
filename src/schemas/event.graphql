@@ -8,10 +8,16 @@ type Event {
 	creator: User!
 	title: String!
 	description: String!
-	location: String!
+	address: String!
+	city: String!
+	postCode: String!
+	state: String!
+	country: String!
 	dateTime: String!
 	price: Float!
 	registrationDeadline: String!
+	categories: [String!]!
+	imageUrl: String
 	isPublic: Boolean!
 	isPublished: Boolean!
 	guests: [Registration!]!
