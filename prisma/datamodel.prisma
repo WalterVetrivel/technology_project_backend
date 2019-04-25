@@ -11,8 +11,8 @@ type User {
 	createdEvents: [Event!]! @relation(name: "CreatedEvents")
 	registeredEvents: [Registration!]!
 	invitations: [Invitation!]! @relation(name: "ReceivedInvitation")
-	requests: [Request!]! @relation(name: "ReceivedRequest")
-	connections: [User!]!
+	following: [User!]! @relation(name: "Followers")
+	followers: [User!]! @relation(name: "Followers")
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
@@ -30,13 +30,12 @@ type Event {
 	dateTime: DateTime!
 	price: Float!
 	registrationDeadline: DateTime!
-	categories: [String!]! @scalarList(strategy: RELATION)
+	category: String!
 	imageUrl: String
-	isPublic: Boolean! @default(value: true)
-	isPublished: Boolean! @default(value: false)
 	guests: [Registration!]!
 	invited: [Invitation!]! @relation(name: "EventInvitation")
 	posts: [Post!]!
+	paymentInfo: String
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
@@ -46,14 +45,7 @@ type Registration {
 	user: User!
 	event: Event!
 	guestCount: Int!
-	createdAt: DateTime! @createdAt
-	updatedAt: DateTime! @updatedAt
-}
-
-type Request {
-	id: ID! @id
-	from: User! @relation(name: "SentRequest")
-	to: User! @relation(name: "ReceivedRequest")
+	paymentInfo: String
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
