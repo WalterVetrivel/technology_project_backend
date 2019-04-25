@@ -15,9 +15,12 @@ const server = new GraphQLServer({
 		Query,
 		Mutation
 	},
-	context: {
-		pubsub,
-		prisma
+	context(req) {
+		return {
+			req,
+			pubsub,
+			prisma
+		};
 	}
 });
 

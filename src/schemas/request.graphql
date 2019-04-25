@@ -1,7 +1,0 @@
-# import User from "user.graphql"
-
-type Request {
-	id: ID!
-	from: User!
-	to: User!
-}

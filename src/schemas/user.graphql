@@ -1,6 +1,5 @@
 # import Event from "event.graphql"
 # import Registration from "registration.graphql"
-# import Request from "request.graphql"
 # import Invitation from "invitation.graphql"
 
 type User {
@@ -16,6 +15,6 @@ type User {
 	createdEvents: [Event!]!
 	registeredEvents: [Registration!]!
 	invitations: [Invitation!]!
-	requests: [Request!]!
-	connections: [User!]!
+	following: [User!]!
+	followers: [User!]!
 }

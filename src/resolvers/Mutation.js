@@ -5,7 +5,7 @@ import RegistrationMutation from './mutations/registration';
 import PostMutation from './mutations/post';
 import CommentMutation from './mutations/comment';
 import InvitationMutation from './mutations/invitation';
-import RequestMutation from './mutations/request';
+import FollowMutation from './mutations/follow';
 
 export default {
 	...UserMutation,
@@ -15,5 +15,5 @@ export default {
 	...PostMutation,
 	...CommentMutation,
 	...InvitationMutation,
-	...RequestMutation
+	...FollowMutation
 };

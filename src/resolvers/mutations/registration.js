@@ -1,8 +1,11 @@
+import getUserId from '../../utils/getUserId';
+
 export default {
-	createRegistration: async (parent, args, {prisma}, info) => {
+	createRegistration: async (parent, args, { prisma, req }, info) => {
+		const userId = getUserId(req);
 		const data = {
 			...args.data,
-			user: {connect: {id: args.data.user}},
+			user: {connect: {id: userId}},
 			event: {connect: {id: args.data.event}}
 		};
 		return prisma.mutation.createRegistration({data}, info);

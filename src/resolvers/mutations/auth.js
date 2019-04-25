@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import api from '../../../api';
 
 export default {
 	login: async (parent, args, {prisma}, info) => {
@@ -17,7 +18,7 @@ export default {
 		}
 		return {
 			user,
-			token: jwt.sign({userId: user.id}, 'eventbookingauthsecret')
+			token: jwt.sign({userId: user.id}, api.JWT_SECRET)
 		};
 	}
 };

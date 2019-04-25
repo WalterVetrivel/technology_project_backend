@@ -1,7 +1,6 @@
 # import User from "user.graphql"
 # import Event from "event.graphql"
 # import Registration from "registration.graphql"
-# import Request from "request.graphql"
 # import Invitation from "invitation.graphql"
 # import Post from "post.graphql"
 # import Comment from "comment.graphql"
@@ -10,15 +9,21 @@ type Query {
 	user(id: ID!): User!
 	users(query: String): [User!]!
 	event(id: ID!): Event!
-	events(query: QueryEventInput): [Event!]!
+	events(
+		query: QueryEventInput
+		first: Int
+		skip: Int
+		orderBy: String
+	): [Event!]!
 }
 
 type Mutation {
 	login(data: AuthInput!): AuthPayload!
-	logout(data: LogoutInput!): String!
 	createUser(data: CreateUserInput!): AuthPayload!
-	updateUser(id: ID!, data: UpdateUserInput!): User!
-	deleteUser(id: ID!): User!
+	updateUser(data: UpdateUserInput!): User!
+	deleteUser: User!
+	followUser(followingId: ID!): String!
+	unfollowUser(followingId: ID!): String!
 	createEvent(data: CreateEventInput!): Event!
 	updateEvent(id: ID!, data: UpdateEventInput!): Event!
 	deleteEvent(id: ID!): Event!
@@ -30,9 +35,6 @@ type Mutation {
 	createComment(data: CreateCommentInput!): Comment!
 	updateComment(id: ID!, data: UpdateCommentInput!): Comment!
 	deleteComment(id: ID!): Comment!
-	createRequest(data: CreateRequestInput!): Request!
-	deleteRequest(id: ID!): Request!
-	acceptRequest(id: ID!): String!
 	createInvitation(data: CreateInvitationInput!): Invitation!
 	deleteInvitation(id: ID!): Invitation!
 }
@@ -54,9 +56,19 @@ input LogoutInput {
 input QueryEventInput {
 	creator: ID
 	search: String
+	category: String
 	location: String
-	minPrice: Float
+	isFree: Boolean
+	isPaid: Boolean
 	maxPrice: Float
+	dateAfter: String
+	registrationAfter: String
+}
+
+input QueryUserInput {
+	name: String
+	location: String
+	eventsHosted: Boolean
 }
 
 input CreateUserInput {
@@ -65,48 +77,43 @@ input CreateUserInput {
 	dateOfBirth: String!
 	email: String!
 	password: String!
-	location: String!
+	city: String!
+	state: String!
+	country: String!
 }
 
 input CreateEventInput {
-	creator: ID!
 	title: String!
 	description: String!
-	location: String!
+	address: String!
+	city: String!
+	state: String!
+	postCode: String!
+	country: String!
 	dateTime: String!
+	category: String!
 	registrationDeadline: String!
 	price: Float!
-	isPublic: Boolean
-	isPublished: Boolean
 }
 
 input CreateRegistrationInput {
-	user: ID!
 	event: ID!
 	guestCount: Int!
 }
 
 input CreatePostInput {
-	author: ID!
 	event: ID!
 	content: String!
 }
 
 input CreateCommentInput {
 	post: ID!
-	author: ID!
 	content: String!
 }
 
 input CreateInvitationInput {
-	sender: ID!
 	receiver: ID!
 	event: ID!
-}
-
-input CreateRequestInput {
-	from: ID!
-	to: ID!
 }
 
 input UpdateUserInput {
@@ -115,17 +122,21 @@ input UpdateUserInput {
 	dateOfBirth: String
 	email: String
 	password: String
-	location: String
+	country: String
+	state: String
+	city: String
 }
 
 input UpdateEventInput {
 	title: String
 	description: String
-	location: String
+	address: String
+	country: String
+	state: String
+	city: String
 	dateTime: String
 	registrationDeadline: String
 	price: Float
-	isPublic: Boolean
 	isPublished: Boolean
 }
 

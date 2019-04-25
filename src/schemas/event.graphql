@@ -16,10 +16,8 @@ type Event {
 	dateTime: String!
 	price: Float!
 	registrationDeadline: String!
-	categories: [String!]!
+	category: String!
 	imageUrl: String
-	isPublic: Boolean!
-	isPublished: Boolean!
 	guests: [Registration!]!
 	invited: [Invitation!]!
 	posts: [Post!]!
