@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:3000
-# timestamp: Fri Apr 26 2019 21:51:49 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Sat Apr 27 2019 00:03:22 GMT+1000 (Australian Eastern Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -469,6 +469,7 @@ type Event implements Node {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   guests(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
@@ -501,6 +502,7 @@ input EventCreateInput {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -542,6 +544,7 @@ input EventCreateWithoutCreatorInput {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -562,6 +565,7 @@ input EventCreateWithoutGuestsInput {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -582,6 +586,7 @@ input EventCreateWithoutInvitedInput {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -602,6 +607,7 @@ input EventCreateWithoutPostsInput {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -642,6 +648,8 @@ enum EventOrderByInput {
   price_DESC
   registrationDeadline_ASC
   registrationDeadline_DESC
+  availableTickets_ASC
+  availableTickets_DESC
   category_ASC
   category_DESC
   imageUrl_ASC
@@ -666,6 +674,7 @@ type EventPreviousValues {
   dateTime: DateTime!
   price: Float!
   registrationDeadline: DateTime!
+  availableTickets: Int
   category: String!
   imageUrl: String
   paymentInfo: String
@@ -1068,6 +1077,28 @@ input EventScalarWhereInput {
 
   """All values greater than or equal the given value."""
   registrationDeadline_gte: DateTime
+  availableTickets: Int
+
+  """All values that are not equal to given value."""
+  availableTickets_not: Int
+
+  """All values that are contained in given list."""
+  availableTickets_in: [Int!]
+
+  """All values that are not contained in given list."""
+  availableTickets_not_in: [Int!]
+
+  """All values less than the given value."""
+  availableTickets_lt: Int
+
+  """All values less than or equal the given value."""
+  availableTickets_lte: Int
+
+  """All values greater than the given value."""
+  availableTickets_gt: Int
+
+  """All values greater than or equal the given value."""
+  availableTickets_gte: Int
   category: String
 
   """All values that are not equal to given value."""
@@ -1282,6 +1313,7 @@ input EventUpdateInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1302,6 +1334,7 @@ input EventUpdateManyDataInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1318,6 +1351,7 @@ input EventUpdateManyMutationInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1372,6 +1406,7 @@ input EventUpdateWithoutCreatorDataInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1391,6 +1426,7 @@ input EventUpdateWithoutGuestsDataInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1410,6 +1446,7 @@ input EventUpdateWithoutInvitedDataInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1429,6 +1466,7 @@ input EventUpdateWithoutPostsDataInput {
   dateTime: DateTime
   price: Float
   registrationDeadline: DateTime
+  availableTickets: Int
   category: String
   imageUrl: String
   paymentInfo: String
@@ -1858,6 +1896,28 @@ input EventWhereInput {
 
   """All values greater than or equal the given value."""
   registrationDeadline_gte: DateTime
+  availableTickets: Int
+
+  """All values that are not equal to given value."""
+  availableTickets_not: Int
+
+  """All values that are contained in given list."""
+  availableTickets_in: [Int!]
+
+  """All values that are not contained in given list."""
+  availableTickets_not_in: [Int!]
+
+  """All values less than the given value."""
+  availableTickets_lt: Int
+
+  """All values less than or equal the given value."""
+  availableTickets_lte: Int
+
+  """All values greater than the given value."""
+  availableTickets_gt: Int
+
+  """All values greater than or equal the given value."""
+  availableTickets_gte: Int
   category: String
 
   """All values that are not equal to given value."""
@@ -3510,6 +3570,11 @@ type User implements Node {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   registeredEvents(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
   invitations(where: InvitationWhereInput, orderBy: InvitationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Invitation!]
@@ -3539,6 +3604,11 @@ input UserCreateInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventCreateManyWithoutCreatorInput
   registeredEvents: RegistrationCreateManyWithoutUserInput
   invitations: InvitationCreateManyWithoutReceiverInput
@@ -3586,6 +3656,11 @@ input UserCreateWithoutCreatedEventsInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   registeredEvents: RegistrationCreateManyWithoutUserInput
   invitations: InvitationCreateManyWithoutReceiverInput
   following: UserCreateManyWithoutFollowersInput
@@ -3602,6 +3677,11 @@ input UserCreateWithoutFollowersInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventCreateManyWithoutCreatorInput
   registeredEvents: RegistrationCreateManyWithoutUserInput
   invitations: InvitationCreateManyWithoutReceiverInput
@@ -3618,6 +3698,11 @@ input UserCreateWithoutFollowingInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventCreateManyWithoutCreatorInput
   registeredEvents: RegistrationCreateManyWithoutUserInput
   invitations: InvitationCreateManyWithoutReceiverInput
@@ -3634,6 +3719,11 @@ input UserCreateWithoutInvitationsInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventCreateManyWithoutCreatorInput
   registeredEvents: RegistrationCreateManyWithoutUserInput
   following: UserCreateManyWithoutFollowersInput
@@ -3650,6 +3740,11 @@ input UserCreateWithoutRegisteredEventsInput {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventCreateManyWithoutCreatorInput
   invitations: InvitationCreateManyWithoutReceiverInput
   following: UserCreateManyWithoutFollowersInput
@@ -3684,6 +3779,16 @@ enum UserOrderByInput {
   state_DESC
   country_ASC
   country_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  bio_ASC
+  bio_DESC
+  showLocation_ASC
+  showLocation_DESC
+  showDob_ASC
+  showDob_DESC
+  showEmail_ASC
+  showEmail_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -3700,6 +3805,11 @@ type UserPreviousValues {
   city: String!
   state: String!
   country: String!
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -4055,6 +4165,98 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   country_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  bio: String
+
+  """All values that are not equal to given value."""
+  bio_not: String
+
+  """All values that are contained in given list."""
+  bio_in: [String!]
+
+  """All values that are not contained in given list."""
+  bio_not_in: [String!]
+
+  """All values less than the given value."""
+  bio_lt: String
+
+  """All values less than or equal the given value."""
+  bio_lte: String
+
+  """All values greater than the given value."""
+  bio_gt: String
+
+  """All values greater than or equal the given value."""
+  bio_gte: String
+
+  """All values containing the given string."""
+  bio_contains: String
+
+  """All values not containing the given string."""
+  bio_not_contains: String
+
+  """All values starting with the given string."""
+  bio_starts_with: String
+
+  """All values not starting with the given string."""
+  bio_not_starts_with: String
+
+  """All values ending with the given string."""
+  bio_ends_with: String
+
+  """All values not ending with the given string."""
+  bio_not_ends_with: String
+  showLocation: Boolean
+
+  """All values that are not equal to given value."""
+  showLocation_not: Boolean
+  showDob: Boolean
+
+  """All values that are not equal to given value."""
+  showDob_not: Boolean
+  showEmail: Boolean
+
+  """All values that are not equal to given value."""
+  showEmail_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -4147,6 +4349,11 @@ input UserUpdateDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   invitations: InvitationUpdateManyWithoutReceiverInput
@@ -4163,6 +4370,11 @@ input UserUpdateInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   invitations: InvitationUpdateManyWithoutReceiverInput
@@ -4179,6 +4391,11 @@ input UserUpdateManyDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
 }
 
 input UserUpdateManyMutationInput {
@@ -4190,6 +4407,11 @@ input UserUpdateManyMutationInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
 }
 
 input UserUpdateManyWithoutFollowersInput {
@@ -4258,6 +4480,11 @@ input UserUpdateWithoutCreatedEventsDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   invitations: InvitationUpdateManyWithoutReceiverInput
   following: UserUpdateManyWithoutFollowersInput
@@ -4273,6 +4500,11 @@ input UserUpdateWithoutFollowersDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   invitations: InvitationUpdateManyWithoutReceiverInput
@@ -4288,6 +4520,11 @@ input UserUpdateWithoutFollowingDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   invitations: InvitationUpdateManyWithoutReceiverInput
@@ -4303,6 +4540,11 @@ input UserUpdateWithoutInvitationsDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   registeredEvents: RegistrationUpdateManyWithoutUserInput
   following: UserUpdateManyWithoutFollowersInput
@@ -4318,6 +4560,11 @@ input UserUpdateWithoutRegisteredEventsDataInput {
   city: String
   state: String
   country: String
+  imageUrl: String
+  bio: String
+  showLocation: Boolean
+  showDob: Boolean
+  showEmail: Boolean
   createdEvents: EventUpdateManyWithoutCreatorInput
   invitations: InvitationUpdateManyWithoutReceiverInput
   following: UserUpdateManyWithoutFollowersInput
@@ -4717,6 +4964,98 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   country_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  bio: String
+
+  """All values that are not equal to given value."""
+  bio_not: String
+
+  """All values that are contained in given list."""
+  bio_in: [String!]
+
+  """All values that are not contained in given list."""
+  bio_not_in: [String!]
+
+  """All values less than the given value."""
+  bio_lt: String
+
+  """All values less than or equal the given value."""
+  bio_lte: String
+
+  """All values greater than the given value."""
+  bio_gt: String
+
+  """All values greater than or equal the given value."""
+  bio_gte: String
+
+  """All values containing the given string."""
+  bio_contains: String
+
+  """All values not containing the given string."""
+  bio_not_contains: String
+
+  """All values starting with the given string."""
+  bio_starts_with: String
+
+  """All values not starting with the given string."""
+  bio_not_starts_with: String
+
+  """All values ending with the given string."""
+  bio_ends_with: String
+
+  """All values not ending with the given string."""
+  bio_not_ends_with: String
+  showLocation: Boolean
+
+  """All values that are not equal to given value."""
+  showLocation_not: Boolean
+  showDob: Boolean
+
+  """All values that are not equal to given value."""
+  showDob_not: Boolean
+  showEmail: Boolean
+
+  """All values that are not equal to given value."""
+  showEmail_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
