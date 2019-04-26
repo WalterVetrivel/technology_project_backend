@@ -4,7 +4,7 @@ export default {
 		if (args.query) {
 			const where = {};
 			if (args.query.creator) {
-				where.creator.id = args.query.creator;
+				where.creator = {id: args.query.creator};
 			}
 			if (args.query.category) {
 				where.category = args.query.category;
@@ -64,17 +64,10 @@ export default {
 		return prisma.query.events(opArgs, info);
 	},
 	event: async (parent, args, {prisma}, info) => {
-		const eventExists = prisma.exists.Event({
-			where: {id: args.id}
-		});
+		const eventExists = prisma.exists.Event({id: args.id});
 		if (!eventExists) {
 			throw new Error('Event not found');
 		}
-		return prisma.query.event(
-			{
-				where: {id: args.id}
-			},
-			info
-		);
+		return prisma.query.event({where: {id: args.id}}, info);
 	}
 };

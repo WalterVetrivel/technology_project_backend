@@ -15,6 +15,10 @@ type Query {
 		skip: Int
 		orderBy: String
 	): [Event!]!
+	registrations(event: ID user: ID first: Int skip: Int orderBy: Int): [Registration!]!
+	isRegistered(eventId: ID!): Boolean!
+	isFollowing(userId: ID!): Boolean!
+	currentUser: User!
 }
 
 type Mutation {
@@ -85,20 +89,23 @@ input CreateUserInput {
 input CreateEventInput {
 	title: String!
 	description: String!
+	price: Float!
+	category: String!
+	dateTime: String!
+	registrationDeadline: String!
 	address: String!
 	city: String!
-	state: String!
 	postCode: String!
+	state: String!
 	country: String!
-	dateTime: String!
-	category: String!
-	registrationDeadline: String!
-	price: Float!
+	imageUrl: String
+	paymentInfo: String!
 }
 
 input CreateRegistrationInput {
 	event: ID!
 	guestCount: Int!
+	paymentInfo: String
 }
 
 input CreatePostInput {
