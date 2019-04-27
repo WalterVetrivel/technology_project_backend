@@ -53,7 +53,6 @@ type Mutation {
 	updateComment(id: ID!, data: UpdateCommentInput!): Comment!
 	deleteComment(id: ID!): Comment!
 	createInvitation(data: CreateInvitationInput!): Invitation!
-	deleteInvitation(id: ID!): Invitation!
 }
 
 type AuthPayload {
@@ -152,13 +151,9 @@ input UpdateEventInput {
 	title: String
 	description: String
 	address: String
-	country: String
-	state: String
-	city: String
 	dateTime: String
 	registrationDeadline: String
 	price: Float
-	isPublished: Boolean
 }
 
 input UpdateRegistrationInput {

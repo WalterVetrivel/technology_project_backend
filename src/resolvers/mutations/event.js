@@ -20,7 +20,7 @@ export default {
 			{where: {id: args.id}},
 			`{ creator { id } }`
 		);
-		if (userId !== creator.id) {
+		if (userId !== creator.creator.id) {
 			throw new Error('Unauthorized');
 		}
 		return prisma.mutation.deleteEvent({where: {id: args.id}}, info);
@@ -31,7 +31,8 @@ export default {
 			{where: {id: args.id}},
 			`{ creator { id } }`
 		);
-		if (userId !== creator.id) {
+		console.log(creator.creator.id);
+		if (userId !== creator.creator.id.toString()) {
 			throw new Error('Unauthorized');
 		}
 		return prisma.mutation.updateEvent(
