@@ -9,6 +9,10 @@ type User {
 	dateOfBirth: String!
 	email: String!
 	password: String!
+	bio: String
+	showLocation: Boolean
+	showDob: Boolean
+	showEmail: Boolean
 	city: String!
 	state: String!
 	country: String!

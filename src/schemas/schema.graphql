@@ -15,7 +15,20 @@ type Query {
 		skip: Int
 		orderBy: String
 	): [Event!]!
-	registrations(event: ID user: ID first: Int skip: Int orderBy: Int): [Registration!]!
+	registrations(
+		event: ID
+		user: ID
+		first: Int
+		skip: Int
+		orderBy: String
+	): [Registration!]!
+	userRegistrations(first: Int, skip: Int, orderBy: String): [Registration!]!
+	eventRegistrations(
+		event: ID!
+		first: Int
+		skip: Int
+		orderBy: String
+	): [Registration!]!
 	isRegistered(eventId: ID!): Boolean!
 	isFollowing(userId: ID!): Boolean!
 	currentUser: User!
@@ -59,6 +72,7 @@ input LogoutInput {
 
 input QueryEventInput {
 	creator: ID
+	notBy: ID
 	search: String
 	category: String
 	location: String

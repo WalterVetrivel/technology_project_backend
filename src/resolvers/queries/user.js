@@ -49,7 +49,6 @@ export default {
 		if (!userExists) {
 			throw new Error('User not found');
 		}
-		// return prisma.query.user({where: {id: userId}}, info);
 		return prisma.query.user({where: {id: userId}}, info);
 	}
 };

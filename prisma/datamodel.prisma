@@ -52,6 +52,7 @@ type Registration {
 	event: Event!
 	guestCount: Int!
 	paymentInfo: String
+	totalPrice: Float
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }

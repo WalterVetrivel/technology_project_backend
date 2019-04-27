@@ -6,4 +6,5 @@ type Registration {
 	user: User!
 	event: Event!
 	guestCount: Int!
+	totalPrice: Float
 }

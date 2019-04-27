@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:3000
-# timestamp: Sat Apr 27 2019 00:03:22 GMT+1000 (Australian Eastern Standard Time)
+# timestamp: Sat Apr 27 2019 13:54:38 GMT+1000 (Australian Eastern Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -3038,6 +3038,7 @@ type Registration implements Node {
   event: Event!
   guestCount: Int!
   paymentInfo: String
+  totalPrice: Float
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3056,6 +3057,7 @@ input RegistrationCreateInput {
   id: ID
   guestCount: Int!
   paymentInfo: String
+  totalPrice: Float
   user: UserCreateOneWithoutRegisteredEventsInput!
   event: EventCreateOneWithoutGuestsInput!
 }
@@ -3074,6 +3076,7 @@ input RegistrationCreateWithoutEventInput {
   id: ID
   guestCount: Int!
   paymentInfo: String
+  totalPrice: Float
   user: UserCreateOneWithoutRegisteredEventsInput!
 }
 
@@ -3081,6 +3084,7 @@ input RegistrationCreateWithoutUserInput {
   id: ID
   guestCount: Int!
   paymentInfo: String
+  totalPrice: Float
   event: EventCreateOneWithoutGuestsInput!
 }
 
@@ -3100,6 +3104,8 @@ enum RegistrationOrderByInput {
   guestCount_DESC
   paymentInfo_ASC
   paymentInfo_DESC
+  totalPrice_ASC
+  totalPrice_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -3110,6 +3116,7 @@ type RegistrationPreviousValues {
   id: ID!
   guestCount: Int!
   paymentInfo: String
+  totalPrice: Float
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3225,6 +3232,28 @@ input RegistrationScalarWhereInput {
 
   """All values not ending with the given string."""
   paymentInfo_not_ends_with: String
+  totalPrice: Float
+
+  """All values that are not equal to given value."""
+  totalPrice_not: Float
+
+  """All values that are contained in given list."""
+  totalPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  totalPrice_lte: Float
+
+  """All values greater than the given value."""
+  totalPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalPrice_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -3311,6 +3340,7 @@ input RegistrationSubscriptionWhereInput {
 input RegistrationUpdateInput {
   guestCount: Int
   paymentInfo: String
+  totalPrice: Float
   user: UserUpdateOneRequiredWithoutRegisteredEventsInput
   event: EventUpdateOneRequiredWithoutGuestsInput
 }
@@ -3318,11 +3348,13 @@ input RegistrationUpdateInput {
 input RegistrationUpdateManyDataInput {
   guestCount: Int
   paymentInfo: String
+  totalPrice: Float
 }
 
 input RegistrationUpdateManyMutationInput {
   guestCount: Int
   paymentInfo: String
+  totalPrice: Float
 }
 
 input RegistrationUpdateManyWithoutEventInput {
@@ -3357,12 +3389,14 @@ input RegistrationUpdateManyWithWhereNestedInput {
 input RegistrationUpdateWithoutEventDataInput {
   guestCount: Int
   paymentInfo: String
+  totalPrice: Float
   user: UserUpdateOneRequiredWithoutRegisteredEventsInput
 }
 
 input RegistrationUpdateWithoutUserDataInput {
   guestCount: Int
   paymentInfo: String
+  totalPrice: Float
   event: EventUpdateOneRequiredWithoutGuestsInput
 }
 
@@ -3499,6 +3533,28 @@ input RegistrationWhereInput {
 
   """All values not ending with the given string."""
   paymentInfo_not_ends_with: String
+  totalPrice: Float
+
+  """All values that are not equal to given value."""
+  totalPrice_not: Float
+
+  """All values that are contained in given list."""
+  totalPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  totalPrice_lte: Float
+
+  """All values greater than the given value."""
+  totalPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalPrice_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""

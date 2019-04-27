@@ -17,6 +17,19 @@ export default {
 		if (event.price !== 0 && !args.data.paymentInfo) {
 			throw new Error('Payment information is missing');
 		}
+		const existingRegistrations = await prisma.query.registrations({
+			where: {
+				user: {
+					id: userId
+				},
+				event: {
+					id: event.id
+				}
+			}
+		});
+		if (existingRegistrations.length !== 0) {
+			throw new Error('Already registered');
+		}
 		const totalPrice = Math.round(event.price * args.data.guestCount * 100);
 		// Charge card based on args.paymentInfo
 		const stripe = require('stripe')(api.STRIPE_TEST_KEY);
@@ -41,6 +54,7 @@ export default {
 			console.log(payout); */
 			const data = {
 				...args.data,
+				totalPrice: totalPrice,
 				user: {
 					connect: {
 						id: userId

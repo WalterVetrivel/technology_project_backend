@@ -9,6 +9,13 @@ export default {
 			if (args.query.category) {
 				where.category = args.query.category;
 			}
+			if (args.query.notBy) {
+				where.creator = {
+					NOT: {
+						id: args.query.notBy
+					}
+				};
+			}
 			if (args.query.search) {
 				where.OR = [
 					{title_contains: args.query.search},
