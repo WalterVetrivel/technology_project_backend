@@ -59,9 +59,9 @@ export default {
 		});
 		return registrations.length > 0;
 	},
-	isFollowing: (parent, args, {prisma, req}, info) => {
+	isFollowing: async (parent, args, {prisma, req}, info) => {
 		const userId = getUserId(req);
-		const users = prisma.query.users({
+		const users = await prisma.query.users({
 			where: {
 				id: userId,
 				following_some: {

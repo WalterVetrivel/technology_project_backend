@@ -1,3 +1,5 @@
+import getUserId from '../../utils/getUserId';
+
 export default {
 	events: async (parent, args, {prisma}, info) => {
 		const opArgs = {};
@@ -76,5 +78,11 @@ export default {
 			throw new Error('Event not found');
 		}
 		return prisma.query.event({where: {id: args.id}}, info);
+	},
+	followingEvents: async (parent, args, {prisma, req}, info) => {
+		const userId = getUserId(req);
+		return prisma.query.events({
+			where: {creator: {followers_some: {id: userId}}}
+		});
 	}
 };

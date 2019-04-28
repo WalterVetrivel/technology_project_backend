@@ -15,6 +15,7 @@ type Query {
 		skip: Int
 		orderBy: String
 	): [Event!]!
+	followingEvents: [Event!]!
 	registrations(
 		event: ID
 		user: ID
