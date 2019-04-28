@@ -11,7 +11,7 @@ export default {
 			info
 		);
 	},
-	deletePost: async (parent, args, { prisma, req }, info) => {
+	deletePost: async (parent, args, {prisma, req}, info) => {
 		const userId = getUserId(req);
 		const postExists = await prisma.exists.Post({id: args.id});
 		if (!postExists) {

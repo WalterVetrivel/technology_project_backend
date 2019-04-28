@@ -27,16 +27,18 @@ export default {
 	},
 	updateEvent: async (parent, args, {prisma, req}, info) => {
 		const userId = getUserId(req);
-		const creator = await prisma.query.event(
+		const event = await prisma.query.event(
 			{where: {id: args.id}},
 			`{ creator { id } }`
 		);
-		console.log(creator.creator.id);
-		if (userId !== creator.creator.id.toString()) {
+		if (userId !== event.creator.id.toString()) {
 			throw new Error('Unauthorized');
 		}
 		return prisma.mutation.updateEvent(
-			{data: args.data, where: {id: args.id}},
+			{
+				data: {...args.data, price: args.data.price * 1.1},
+				where: {id: args.id}
+			},
 			info
 		);
 	}

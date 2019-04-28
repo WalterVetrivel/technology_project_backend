@@ -7,7 +7,7 @@
 
 type Query {
 	user(id: ID!): User!
-	users(query: String): [User!]!
+	users(query: QueryUserInput, first: Int, skip: Int): [User!]!
 	event(id: ID!): Event!
 	events(
 		query: QueryEventInput
