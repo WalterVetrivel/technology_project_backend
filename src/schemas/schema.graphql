@@ -15,7 +15,12 @@ type Query {
 		skip: Int
 		orderBy: String
 	): [Event!]!
-	followingEvents: [Event!]!
+	eventPosts(eventId: ID!, first: Int, skip: Int, orderBy: String): [Post!]!
+	followingEvents(
+		dateAfter: String
+		registrationAfter: String
+		first: Int
+	): [Event!]!
 	registrations(
 		event: ID
 		user: ID

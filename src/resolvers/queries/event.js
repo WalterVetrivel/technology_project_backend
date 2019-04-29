@@ -84,5 +84,21 @@ export default {
 		return prisma.query.events({
 			where: {creator: {followers_some: {id: userId}}}
 		});
+	},
+	eventPosts: async (parent, args, {prisma, req}, info) => {
+		const opArgs = {};
+		opArgs.where = {
+			event: args.eventId
+		};
+		if (args.first) {
+			opArgs.first = args.first;
+		}
+		if (args.skip) {
+			opArgs.skip = args.skip;
+		}
+		if (args.orderBy) {
+			opArgs.orderBy = args.orderBy;
+		}
+		return prisma.query.posts(opArgs, info);
 	}
 };
