@@ -39,7 +39,7 @@ export default {
 	},
 	eventRegistrations: async (parent, args, {prisma, req}, info) => {
 		const userId = getUserId(req);
-		const eventExists = prisma.exists.Event({id: args.event});
+		const eventExists = await prisma.exists.Event({id: args.event});
 		if (!eventExists) {
 			throw new Error('Event not found');
 		}

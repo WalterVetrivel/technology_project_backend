@@ -5,8 +5,11 @@ export default {
 		const userId = getUserId(req);
 		return prisma.mutation.createPost(
 			{
-				data: args.data,
-				author: {connect: {id: userId}, event: {connect: {id: args.data.event}}}
+				data: {
+					author: {connect: {id: userId}},
+					event: {connect: {id: args.data.event}},
+					content: args.data.content
+				}
 			},
 			info
 		);

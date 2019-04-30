@@ -81,14 +81,25 @@ export default {
 	},
 	followingEvents: async (parent, args, {prisma, req}, info) => {
 		const userId = getUserId(req);
-		return prisma.query.events({
-			where: {creator: {followers_some: {id: userId}}}
-		});
+		console.log(args);
+		const opArgs = {};
+		const where = {};
+		if (args.dateAfter) {
+			where.dateTime_gte = args.dateAfter;
+		}
+		if (args.registrationAfter) {
+			where.dateTime_gte = args.registrationAfter;
+		}
+		where.creator = {
+			followers_some: {id: userId}
+		};
+		opArgs.where = where;
+		return prisma.query.events(opArgs, info);
 	},
 	eventPosts: async (parent, args, {prisma, req}, info) => {
 		const opArgs = {};
 		opArgs.where = {
-			event: args.eventId
+			event: {id: args.eventId}
 		};
 		if (args.first) {
 			opArgs.first = args.first;
